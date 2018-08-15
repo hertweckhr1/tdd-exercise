@@ -18,42 +18,70 @@ describe 'Blackjack Score' do
     score = blackjack_score(hand)
 
     # Assert <-  You do this part!
-    expect(blackjack_score).must_equal 7
+    expect(score).must_equal 7
   end
 
-  xit 'facecards have values calculated correctly' do
+  it 'facecards have values calculated correctly' do
+    #Arrange
+    hand = ["Queen", "King"]
+
+    #Act
+    score = blackjack_score(hand)
+
+    #Assert
+    expect(score).must_equal 20
 
   end
 
   it 'calculates aces as 11 where it does not go over 21' do
     # Arrange
-    hand = [9, "ace"]
+    hand = [9, 1]
 
     # Act
     score = blackjack_score(hand)
 
     # Assert
-    expect(blackjack_score).must_be 20
+    expect(score).must_equal 20
 
   end
 
   it 'calculates aces as 1, if an 11 would cause the score to go over 21' do
     # Arrange
-    hand = [10, 5, "ace"]
+    hand = [10, 5, 1]
 
     # Act
     score = blackjack_score(hand)
 
     # Assert
-    expect(blackjack_score).must_be 16
+    expect(score).must_equal 16
 
   end
 
-  xit 'raises an ArgumentError for invalid cards' do
+  it 'raises an ArgumentError for invalid cards' do
+    #Arrange
+    hand = [5, 10]
+    #Act
+    score = blackjack_score(hand)
+    #assert
+    expect(score).must_equal 15
+    #re-arrange
+    hand = [5, 12]
+    #re-assert
+    expect {score = blackjack_score(hand)}.must_raise ArgumentError
 
   end
 
-  xit 'raises an ArgumentError for scores over 21' do
-
+  it 'raises an ArgumentError for scores over 21' do
+    #Arrange
+    hand = [10, "Jack", 1]
+    #Act
+    score = blackjack_score(hand)
+    #Assert
+    expect(score).must_equal 21
+    #re-Arrange
+    hand = [10, "Jack", 2]
+    #re-assert
+    expect {score = blackjack_score(hand)}.must_raise ArgumentError
   end
+
 end
